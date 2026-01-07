@@ -1,0 +1,36 @@
+/* Premium UI styles */
+
+/* Fondo degradado para la página */
+body {
+    background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+    color: #e0e0ff;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Animaciones de hover para botones */
+button:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}

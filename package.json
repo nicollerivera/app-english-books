@@ -1,0 +1,36 @@
+{
+  "name": "immersive-reader",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"No tests defined\" && exit 0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.26",
+    "lucide-react": "^0.562.0",
+    "next": "16.1.1",
+    "pdfjs-dist": "^4.4.168",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-pdf": "^9.1.1",
+    "react-tsparticles": "^2.12.0",
+    "tailwind-merge": "^3.4.0",
+    "tsparticles": "^2.12.0",
+    "tsparticles-engine": "^2.12.0",
+    "zustand": "^5.0.9"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
