@@ -17,18 +17,11 @@ export async function explainText(text: string) {
       1. Significado: Traducción fiel. NO cambies nombres de animales ni objetos (Boa es Boa, no Anaconda).
       2. Gramática: Breve análisis sintáctico.
       3. Uso: Contexto (formal, literario, etc.).
-      4. Fonética: Transcribe los sonidos usando SOLO sílabas que un hispanohablante leería igual.
-         - Usa guiones para separar sílabas.
-         - Tilda la sílaba tónica.
-         - Usa "j" para "h", "u" para "w", "sh" para sonidos suaves.
-         - MAL: "Bow ahn" (parece inglés).
-         - BIEN: "Bó-a con-stríc-tor".
 
-      Formato de respuesta (sin markdown extra, solo las 4 líneas):
+      Formato de respuesta (sin markdown extra, solo las 3 líneas):
       - Significado: ...
       - Gramática: ...
       - Uso: ...
-      - Fonética: ...
 
       Frase: "${text}"
     `;
