@@ -17,11 +17,11 @@ export async function explainText(text: string) {
       - Significado: [Traducción exacta al español]
       - Gramática: [Analiza la estructura: tiempo verbal, tipo de palabra]
       - Uso: [Explica EL CONTEXTO: ¿Es formal/informal? ¿Sarcasmo? ¿En qué situación se usa?]
-      - Fonética: [Pronunciación escrita como se lee en español, p.ej. "jalou" para "hello"]
+      - Fonética: [Escribe la pronunciación APROXIMADA usando solo letras del español. NO uses símbolos "IPA" ni raros. Ejemplo: "Jalou, jau ar iú"]
 
       Ejemplo de Gramática bueno: "Adjetivo comparativo. Se usa 'more' antes de adjetivos largos."
       
-      Ejemplo de Uso bueno: "Se usa en conversaciones informales para mostrar sorpresa, a veces con sarcasmo."
+      Ejemplo de Uso bueno: "Se usa en conversaciones informales para mostrar sorpresa."
 
       Mantén la respuesta bajo 600 caracteres.
 
