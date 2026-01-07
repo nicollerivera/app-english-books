@@ -35,7 +35,7 @@ export async function explainText(text: string) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",
+                model: "llama-3.1-8b-instant",
                 messages: [
                     {
                         role: "system",
@@ -54,6 +54,10 @@ export async function explainText(text: string) {
 
         if (data.error) {
             console.error("Groq API Error:", data.error);
+            // Manejo amigable del límite de velocidad (Rate Limit)
+            if (data.error.code === 'rate_limit_exceeded' || data.error.message?.includes('Rate limit')) {
+                return { error: true, data: "⏳ El maestro está tomando aire. Espera 2 segundos y vuelve a intentar." };
+            }
             return { error: true, data: "Error consultando a Groq: " + data.error.message };
         }
 
