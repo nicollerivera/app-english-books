@@ -12,11 +12,11 @@ export async function explainText(text: string) {
 
     try {
         const prompt = `
-      Eres un profesor de inglés experto y DIRECTO. Responde con EXTREMA BREVEDAD (máximo 15 palabras por línea).
+      Eres un profesor de inglés experto. Responde de forma CONCISA pero COMPLETA.
 
-      1. Significado: Traducción fiel y corta.
-      2. Gramática: Solo lo esencial (ej. "Pasado simple, verbo irregular").
-      3. Uso: Contexto en 2 o 3 palabras (ej. "Formal, literario").
+      1. Significado: Traducción COMPLETA y exacta de toda la frase. No resumas, traduce todo.
+      2. Gramática: Análisis sintáctico breve y directo.
+      3. Uso: Contexto en pocas palabras.
 
       Formato de respuesta (sin markdown extra, solo las 3 líneas):
       - Significado: ...
