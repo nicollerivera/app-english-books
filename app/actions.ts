@@ -12,11 +12,11 @@ export async function explainText(text: string) {
 
     try {
         const prompt = `
-      Eres un profesor de inglés experto. Analiza la siguiente frase con precisión quirúrgica:
+      Eres un profesor de inglés experto y DIRECTO. Responde con EXTREMA BREVEDAD (máximo 15 palabras por línea).
 
-      1. Significado: Traducción fiel. NO cambies nombres de animales ni objetos (Boa es Boa, no Anaconda).
-      2. Gramática: Breve análisis sintáctico.
-      3. Uso: Contexto (formal, literario, etc.).
+      1. Significado: Traducción fiel y corta.
+      2. Gramática: Solo lo esencial (ej. "Pasado simple, verbo irregular").
+      3. Uso: Contexto en 2 o 3 palabras (ej. "Formal, literario").
 
       Formato de respuesta (sin markdown extra, solo las 3 líneas):
       - Significado: ...
