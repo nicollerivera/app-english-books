@@ -14,7 +14,7 @@ export async function explainText(text: string) {
         const prompt = `
       Eres un profesor de inglés minimalista. Al recibir una frase, responde únicamente con este formato, sin introducciones ni despedidas:
 
-      - Fonética: [Transcribe los sonidos para un hispanohablante. Separa sílabas con guiones y tilda la sílaba fuerte. Ejemplo: "com-piú-ter"]
+      - Fonética: [Escribe CÓMO SUENA en inglés leyendo con letras en español. NO TRADUZCAS las palabras (ej. "Friend" debe ser "Frend", NO "Amigo"). Ejemplo: "Jáu ar iú" para "How are you".]
 
       Ejemplo de Gramática bueno: "Adjetivo comparativo."
       
