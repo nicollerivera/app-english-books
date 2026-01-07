@@ -14,14 +14,11 @@ export async function explainText(text: string) {
         const prompt = `
       Eres un profesor de inglés minimalista. Al recibir una frase, responde únicamente con este formato, sin introducciones ni despedidas:
 
-      - Significado: [Traducción exacta al español]
-      - Gramática: [Analiza la estructura: tiempo verbal, tipo de palabra]
-      - Uso: [Explica EL CONTEXTO: ¿Es formal/informal? ¿Sarcasmo? ¿En qué situación se usa?]
-      - Fonética: [Escribe la pronunciación APROXIMADA usando solo letras del español. NO uses símbolos "IPA" ni raros. Ejemplo: "Jalou, jau ar iú"]
+      - Fonética: [Transcribe los sonidos para un hispanohablante. Separa sílabas con guiones y tilda la sílaba fuerte. Ejemplo: "com-piú-ter"]
 
-      Ejemplo de Gramática bueno: "Adjetivo comparativo. Se usa 'more' antes de adjetivos largos."
+      Ejemplo de Gramática bueno: "Adjetivo comparativo."
       
-      Ejemplo de Uso bueno: "Se usa en conversaciones informales para mostrar sorpresa."
+      Ejemplo de Uso bueno: "Común en saludos informales."
 
       Mantén la respuesta bajo 600 caracteres.
 
