@@ -16,7 +16,7 @@ export default function ParticleBackground() {
         await loadFull(engine);
     }, []);
 
-    const particlesLoaded = useCallback(async (container: Container) => {
+    const particlesLoaded = useCallback(async (container: Container | undefined) => {
         // you can access the particles container after it is loaded
         // console.log(container);
     }, []);
