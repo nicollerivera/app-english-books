@@ -12,20 +12,25 @@ export async function explainText(text: string) {
 
     try {
         const prompt = `
-      Eres un profesor de inglés minimalista. Al recibir una frase, responde únicamente con este formato, sin introducciones ni despedidas:
+      Eres un profesor de inglés experto. Analiza la siguiente frase con precisión quirúrgica:
 
-      - Significado: [Traducción exacta al español]
-      - Gramática: [Analiza la estructura: tiempo verbal, tipo de palabra]
-      - Uso: [Explica EL CONTEXTO: ¿Es formal/informal? ¿Sarcasmo?]
-      - Fonética: [Escribe CÓMO SUENA en inglés leyendo con letras en español. NO TRADUZCAS las palabras. Ejemplo: "Jáu ar iú".]
+      1. Significado: Traducción fiel. NO cambies nombres de animales ni objetos (Boa es Boa, no Anaconda).
+      2. Gramática: Breve análisis sintáctico.
+      3. Uso: Contexto (formal, literario, etc.).
+      4. Fonética: Transcribe los sonidos usando SOLO sílabas que un hispanohablante leería igual.
+         - Usa guiones para separar sílabas.
+         - Tilda la sílaba tónica.
+         - Usa "j" para "h", "u" para "w", "sh" para sonidos suaves.
+         - MAL: "Bow ahn" (parece inglés).
+         - BIEN: "Bó-a con-stríc-tor".
 
-      Ejemplo de Gramática bueno: "Adjetivo comparativo."
-      
-      Ejemplo de Uso bueno: "Común en saludos informales."
+      Formato de respuesta (sin markdown extra, solo las 4 líneas):
+      - Significado: ...
+      - Gramática: ...
+      - Uso: ...
+      - Fonética: ...
 
-      Mantén la respuesta bajo 600 caracteres.
-
-      Frase a analizar: "${text}"
+      Frase: "${text}"
     `;
 
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -35,7 +40,7 @@ export async function explainText(text: string) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
+                model: "llama-3.3-70b-versatile",
                 messages: [
                     {
                         role: "system",
