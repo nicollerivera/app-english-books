@@ -8,11 +8,13 @@ interface PDFState {
     pageNumber: number;
     scale: number;
     isProcessing: boolean;
+    currentBookId: string | null;
     setFile: (file: File | string | null) => void;
     setPages: (pages: PageData[]) => void;
     setNumPages: (num: number) => void;
     setPageNumber: (page: number) => void;
     setScale: (scale: number) => void;
+    setBookId: (id: string | null) => void;
     loadPdf: (file: File | string) => Promise<void>;
 }
 
@@ -23,16 +25,19 @@ export const usePDFStore = create<PDFState>((set) => ({
     pageNumber: 1,
     scale: 1.2,
     isProcessing: false,
+    currentBookId: null,
     setFile: (file) => set({ file, pageNumber: 1 }),
     setPages: (pages) => set({ pages, numPages: pages.length, pageNumber: 1 }),
     setNumPages: (num) => set({ numPages: num }),
     setPageNumber: (page) => set({ pageNumber: page }),
     setScale: (scale) => set({ scale }),
+    setBookId: (id) => set({ currentBookId: id }),
     loadPdf: async (file) => {
         set({ isProcessing: true });
         try {
             const pages = await extractPdf(file);
-            set({ file, pages, numPages: pages.length, pageNumber: 1 });
+            // Default to page 1, component will override if progress exists
+            set({ file, pages, numPages: pages.length });
         } catch (error) {
             console.error("Error loading PDF", error);
         } finally {

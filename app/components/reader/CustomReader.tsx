@@ -4,10 +4,33 @@ import { useEffect, useState, MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePDFStore } from "../../stores/usePDFStore";
 import TeacherPanel from "../learning/TeacherPanel";
+import { Flag } from 'lucide-react';
+import { saveProgress, loadProgress } from '@/app/lib/storage';
 
 export default function CustomReader() {
-    const { pages, pageNumber, setPageNumber, numPages } = usePDFStore();
+    const { pages, pageNumber, setPageNumber, numPages, currentBookId } = usePDFStore();
     const [selectedText, setSelectedText] = useState<string | null>(null);
+
+    const [isInitialized, setIsInitialized] = useState(false);
+
+    // Cargar progreso al iniciar
+    useEffect(() => {
+        if (currentBookId) {
+            loadProgress(currentBookId).then(savedPage => {
+                if (savedPage > 1) {
+                    setPageNumber(savedPage);
+                }
+                setIsInitialized(true);
+            });
+        }
+    }, [currentBookId]); // Se ejecuta al montar o cambiar de libro
+
+    // Guardar progreso automáticamente
+    useEffect(() => {
+        if (currentBookId && isInitialized) {
+            saveProgress(currentBookId, pageNumber);
+        }
+    }, [pageNumber, currentBookId, isInitialized]);
 
     const handleTextSelection = () => {
         const selection = window.getSelection();
@@ -30,10 +53,30 @@ export default function CustomReader() {
     };
 
     return (
-        <div className="relative min-h-screen bg-[#f3e5d0] text-gray-900 font-serif flex overflow-hidden">
+        <div className="relative min-h-screen bg-[#f3e5d0] text-gray-900 font-serif flex overflow-hidden flex-col md:flex-row">
 
             {/* Área Principal del Libro (Dinámica) */}
             <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 transition-all duration-500">
+
+                {/* Visual Progress Bar (Constraint to book width) */}
+                <div className="w-full max-w-4xl mb-4 flex items-center justify-between px-2 gap-3">
+                    <div className="h-2 flex-1 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+                        <div
+                            className="h-full bg-gradient-to-r from-purple-500 via-indigo-400 to-green-400 rounded-full transition-all duration-300 ease-out"
+                            style={{ width: `${numPages ? (pageNumber / numPages) * 100 : 0}%` }}
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-1 min-w-[3.5rem] justify-end">
+                        <span className="text-xs font-bold text-gray-500 font-sans">
+                            {numPages ? Math.round((pageNumber / numPages) * 100) : 0}%
+                        </span>
+                        <Flag
+                            className={`w-4 h-4 transition-colors duration-500 ${(numPages && pageNumber === numPages) ? 'text-green-500 fill-green-500 animate-bounce' : 'text-gray-300'
+                                }`}
+                        />
+                    </div>
+                </div>
 
                 <div className="relative w-full max-w-4xl h-[85vh] flex shadow-2xl rounded-lg overflow-hidden bg-[#fffdf9]">
 
@@ -55,7 +98,7 @@ export default function CustomReader() {
                         {/* Header Decoration */}
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent opacity-50" />
 
-                        {currentPage ? (
+                        {currentPage && isInitialized ? (
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={pageNumber}
@@ -86,7 +129,7 @@ export default function CustomReader() {
                     {/* Botón Siguiente */}
                     <button
                         onClick={goNext}
-                        disabled={pageNumber >= (numPages ?? 0)}
+                        disabled={pageNumber >= (numPages ?? 0) || !isInitialized}
                         className="hidden md:flex flex-col justify-center items-center w-12 bg-[#eaddcf] hover:bg-[#e0d0bd] transition-colors border-l border-[#d4c5b3] z-10 disabled:opacity-50"
                     >
                         <span className="text-xl text-gray-600">→</span>
@@ -95,9 +138,9 @@ export default function CustomReader() {
 
                 {/* Controles Móviles */}
                 <div className="md:hidden flex gap-4 mt-4">
-                    <button onClick={goPrev} disabled={pageNumber <= 1} className="px-4 py-2 bg-white rounded shadow text-sm">Prev</button>
+                    <button onClick={goPrev} disabled={pageNumber <= 1 || !isInitialized} className="px-4 py-2 bg-white rounded shadow text-sm">Prev</button>
                     <span className="text-sm font-bold flex items-center">{pageNumber} / {numPages}</span>
-                    <button onClick={goNext} disabled={pageNumber >= (numPages ?? 0)} className="px-4 py-2 bg-white rounded shadow text-sm">Next</button>
+                    <button onClick={goNext} disabled={pageNumber >= (numPages ?? 0) || !isInitialized} className="px-4 py-2 bg-white rounded shadow text-sm">Next</button>
                 </div>
             </div>
 

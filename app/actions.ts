@@ -12,18 +12,20 @@ export async function explainText(text: string) {
 
     try {
         const prompt = `
-      Actúa como un compañero de estudio divertido, ingenioso y breve.
-      Explica el siguiente texto: "${text}".
+      Eres un profesor de inglés minimalista. Al recibir una frase, responde únicamente con este formato, sin introducciones ni despedidas:
+
+      - Significado: [Traducción exacta al español]
+      - Gramática: [Analiza la estructura: tiempo verbal, tipo de palabra]
+      - Uso: [Explica EL CONTEXTO: ¿Es formal/informal? ¿Sarcasmo? ¿En qué situación se usa?]
+      - Fonética: [Pronunciación escrita como se lee en español, p.ej. "jalou" para "hello"]
+
+      Ejemplo de Gramática bueno: "Adjetivo comparativo. Se usa 'more' antes de adjetivos largos."
       
-      Reglas:
-      1. ¡SÉ BREVE! Nada de biblias. Máximo 2-3 frases por punto.
-      2. Tono: Humorístico, casual y directo. Usa emojis. ⚡️
-      3. Estructura:
-         - 🇪🇸 **Traducción**: Lo que significa en español (coloquial si aplica).
-         - 🤓 **El "por qué"**: Explicación rápida y sencilla.
-         - 😂 **Dato**: Algo divertido o un chiste corto relacionado.
-      
-      No te enrolles. ¡Hazlo ágil y en español!
+      Ejemplo de Uso bueno: "Se usa en conversaciones informales para mostrar sorpresa, a veces con sarcasmo."
+
+      Mantén la respuesta bajo 600 caracteres.
+
+      Frase a analizar: "${text}"
     `;
 
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -37,14 +39,14 @@ export async function explainText(text: string) {
                 messages: [
                     {
                         role: "system",
-                        content: "Eres un profesor de inglés experto y amable."
+                        content: "Eres un profesor de inglés experto que explica de forma clara y sintética."
                     },
                     {
                         role: "user",
                         content: prompt
                     }
                 ],
-                temperature: 0.7
+                temperature: 0.5
             })
         });
 
