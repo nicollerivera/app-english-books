@@ -31,10 +31,15 @@ export default function PDFViewer({ onWordSelect }: { onWordSelect: (word: strin
     async function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { files } = event.target;
         if (files && files[0]) {
-            const newMetadata = await saveBook(files[0]);
-            setBooks(prev => [newMetadata, ...prev]);
-            usePDFStore.getState().setBookId(newMetadata.id); // Set ID
-            await loadPdf(files[0]);
+            try {
+                const newMetadata = await saveBook(files[0]);
+                setBooks(prev => [newMetadata, ...prev]);
+                usePDFStore.getState().setBookId(newMetadata.id); // Set ID
+                await loadPdf(files[0]);
+            } catch (error) {
+                console.error("Error guardando el libro:", error);
+                alert("No se pudo guardar el libro en la memoria del dispositivo. Puede que no tengas espacio suficiente.");
+            }
         }
     }
 

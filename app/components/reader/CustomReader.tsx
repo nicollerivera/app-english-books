@@ -32,16 +32,34 @@ export default function CustomReader() {
         }
     }, [pageNumber, currentBookId, isInitialized]);
 
-    const handleTextSelection = () => {
-        const selection = window.getSelection();
-        if (selection && selection.toString().trim().length > 0) {
-            const text = selection.toString().trim();
-            // Solo activar si es una selección "intencional" (más de 2 letras)
-            if (text.length > 2) {
-                setSelectedText(text);
+    // Manejo robusto de selección de texto (Mobile + Desktop)
+    useEffect(() => {
+        const handleSelectionChange = () => {
+            const selection = window.getSelection();
+            if (!selection || selection.isCollapsed) {
+                // Si no hay selección o es solo un clic, podríamos limpiar el estado
+                // Pero ojo: en móvil a veces se pierde el foco momentáneamente.
+                // Decidimos no limpiar automáticamente para no cerrar el panel agresivamente,
+                // salvo que el usuario lo cierre explícitamente.
+                return;
             }
-        }
-    };
+
+            const text = selection.toString().trim();
+            if (text.length > 2) {
+                // Pequeño debounce para evitar actualizaciones mientras se arrastra
+                const timeoutId = setTimeout(() => {
+                    setSelectedText(text);
+                }, 500);
+                return () => clearTimeout(timeoutId);
+            }
+        };
+
+        document.addEventListener('selectionchange', handleSelectionChange);
+        return () => document.removeEventListener('selectionchange', handleSelectionChange);
+    }, []);
+
+    // Ya no necesitamos handleTextSelection manual explicito
+    const handleTextSelection = () => { };
 
     const currentPage = pages[pageNumber - 1];
 
