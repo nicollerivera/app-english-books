@@ -15,7 +15,7 @@ export async function explainText(text: string) {
       Eres un profesor de inglés experto. Responde de forma CONCISA pero COMPLETA.
 
       1. Significado: Traducción COMPLETA y exacta de toda la frase. No resumas, traduce todo.
-      2. Gramática: Análisis sintáctico breve y directo.
+      2. Gramática: MÁXIMO 5 PALABRAS. Solo la estructura clave (ej. "Pasado Simple").
       3. Uso: Contexto en pocas palabras.
 
       Formato de respuesta (sin markdown extra, solo las 3 líneas):
